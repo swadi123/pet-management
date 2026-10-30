@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawPal | Pet Care Assistant</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="/" class="brand">
+        <span class="brand-icon">🐾</span>
+        <span>PawPal<small> PET CARE ASSISTANT</small></span>
+    </a>
+    <a href="#chatbot" class="nav-button">Chat with us ✨</a>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">A LITTLE MORE LOVE, EVERY DAY</span>
+            <h1>Because your pet<br>is <span>family.</span></h1>
+            <p>Your cozy corner for pet care, feeding guidance,
+               wellness tips and everyday reminders.</p>
+            <a href="#chatbot" class="primary-button">
+                Meet your AI assistant →
+            </a>
+            <div class="hero-note">♡ Made for the love of paws</div>
+        </div>
+        <div class="hero-art">
+            <div class="art-circle"></div>
+            <div class="pet-emoji">🐶</div>
+            <span class="floating-heart heart-one">♡</span>
+            <span class="floating-heart heart-two">✦</span>
+            <span class="floating-heart heart-three">♡</span>
+            <div class="art-caption">happy paws, happy hearts</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">YOUR PET'S HAPPY PLACE</span>
+                <h2>Care made simple <span>🌷</span></h2>
+            </div>
+            <p>Everything your little companion needs.</p>
+        </div>
+
+        <div class="feature-grid">
+            <a href="#profiles" class="feature-card green-card">
+                <div class="feature-icon">🐕</div>
+                <h3>Pet Profiles</h3>
+                <p>Keep your pet's details safe and organised.</p>
+                <span class="card-link">Explore profiles →</span>
+            </a>
+
+            <a href="#chatbot" class="feature-card purple-card">
+                <div class="feature-icon">💬</div>
+                <h3>AI Pet Buddy</h3>
+                <p>Ask questions about your pet's daily care.</p>
+                <span class="card-link">Start chatting →</span>
+            </a>
+
+            <a href="#chatbot" class="feature-card pink-card">
+                <div class="feature-icon">🥣</div>
+                <h3>Feeding Guidance</h3>
+                <p>Learn about suitable food and feeding routines.</p>
+                <span class="card-link">Get guidance →</span>
+            </a>
+
+            <a href="#chatbot" class="feature-card yellow-card">
+                <div class="feature-icon">🩺</div>
+                <h3>Health & Wellness</h3>
+                <p>Explore wellness tips and when to contact a vet.</p>
+                <span class="card-link">Learn more →</span>
+            </a>
+
+            <a href="#reminders" class="feature-card blue-card">
+                <div class="feature-icon">🔔</div>
+                <h3>Care Reminders</h3>
+                <p>Keep important pet-care dates in view.</p>
+                <span class="card-link">View reminders →</span>
+            </a>
+
+            <a href="#chatbot" class="feature-card peach-card">
+                <div class="feature-icon">💗</div>
+                <h3>Everyday Care</h3>
+                <p>Build happier and healthier pet-care habits.</p>
+                <span class="card-link">Get pet tips →</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="section" id="profiles">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">OUR LITTLE FAMILY</span>
+                <h2>Your pet profiles 🐾</h2>
+            </div>
+        </div>
+
+        <div class="content-panel">
+            <form method="POST" action="/" class="pet-form">
+                <div class="form-title">
+                    <span>🐾</span>
+                    <div>
+                        <h3>Add your furry friend</h3>
+                        <p>Tell us a little about your companion.</p>
+                    </div>
+                </div>
+
+                <label for="name">Pet's name</label>
+                <input id="name" name="name" placeholder="e.g. Bruno"
+                       maxlength="100" required>
+
+                <label for="species">Pet type</label>
+                <select id="species" name="species" required>
+                    <option value="">Choose your pet</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Bird">Bird</option>
+                    <option value="Rabbit">Rabbit</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="age">Age in years</label>
+                <input id="age" name="age" type="number"
+                       min="0" max="100" placeholder="e.g. 2" required>
+
+                <label for="breed">Breed</label>
+                <input id="breed" name="breed" maxlength="100"
+                       placeholder="e.g. Labrador or mixed breed" required>
+
+                <button type="submit" class="primary-button">
+                    + Save pet profile
+                </button>
+            </form>
+
+            <div class="pet-list">
+                <h3>Meet your pets</h3>
+                {% if pets %}
+                    {% for pet in pets %}
+                    <div class="pet-item">
+                        <div class="pet-avatar">
+                            {% if pet.species == "Dog" %}🐶
+                            {% elif pet.species == "Cat" %}🐱
+                            {% elif pet.species == "Bird" %}🐦
+                            {% elif pet.species == "Rabbit" %}🐰
+                            {% else %}🐾{% endif %}
+                        </div>
+                        <div class="pet-info">
+                            <strong>{{ pet.name }}</strong>
+                            <p>{{ pet.species }} · {{ pet.breed }}</p>
+                            <p>{{ pet.age }} year(s) old</p>
+                        </div>
+                        <span class="pet-heart">♡</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <span>🐾</span>
+                        <p>Your pet's story starts here.</p>
+                        <small>Add a profile to see it here.</small>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="chatbot">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">YOUR FRIENDLY PET COMPANION</span>
+                <h2>Let's talk pet care <span>💜</span></h2>
+            </div>
+        </div>
+
+        <div class="chat-panel">
+            <div class="chat-header">
+                <div class="bot-avatar">🐾</div>
+                <div>
+                    <h3>PawPal Assistant</h3>
+                    <p><span class="online-dot"></span> Your pet-care companion</p>
+                </div>
+                <span class="chat-sparkle">✦</span>
+            </div>
+
+            <div id="chat-messages" class="chat-messages"
+                 aria-live="polite">
+                <div class="message bot-message">
+                    <div class="message-avatar">🐶</div>
+                    <div class="bubble">
+                        <span class="message-name">PawPal</span>
+                        <p>Hi there! Welcome to PawPal! 🌷</p>
+                        <p>I'm here to help you learn about feeding,
+                           everyday care and pet wellness. What's on
+                           your mind today?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="suggestions">
+                <button type="button" class="suggestion"
+                        data-question="How can I care for my puppy?">
+                    🐶 Puppy care
+                </button>
+                <button type="button" class="suggestion"
+                        data-question="What should I know about pet feeding?">
+                    🥣 Feeding tips
+                </button>
+                <button type="button" class="suggestion"
+                        data-question="How can I maintain my pet's health?">
+                    🌿 Pet wellness
+                </button>
+            </div>
+
+            <form id="chat-form" class="chat-input-area">
+                <input id="chat-input" type="text"
+                       placeholder="Ask something about your pet..."
+                       aria-label="Your pet-care question"
+                       maxlength="1000" autocomplete="off" required>
+                <button type="submit" class="send-button"
+                        aria-label="Send message">➤</button>
+            </form>
+            <p class="chat-disclaimer">
+                PawPal offers general information, not veterinary diagnosis.
+            </p>
+        </div>
+    </section>
+
+    <section class="section" id="reminders">
+        <div class="reminder-banner">
+            <div>
+                <span class="eyebrow">LITTLE THINGS MATTER</span>
+                <h2>Never miss a moment of care. 🔔</h2>
+                <p>Vaccinations, grooming, feeding routines and vet visits
+                   — we'll build your reminder feature next.</p>
+            </div>
+            <div class="reminder-art">🗓️</div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-brand">🐾 PawPal</div>
+    <p>Made with ♡ for every paw, whisker and wag.</p>
+    <small>For pet health concerns, consult a qualified veterinarian.</small>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
