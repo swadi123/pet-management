@@ -1,0 +1,14 @@
+
+# Keep API keys private
+.env
+
+# Ignore virtual environment
+venv/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore local database
+instance/
+pets.db
